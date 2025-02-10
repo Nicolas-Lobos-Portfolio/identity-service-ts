@@ -19,7 +19,7 @@ jobs:
   # Job de Security Scan
   security_scan:
     needs: build
-    uses: ./.github/workflows/security-scan.yml
+    uses: ./.github/workflows/security_scan.yml
 
   # Job de Deploy
   deploy:
