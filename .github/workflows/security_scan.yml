@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-
 jobs:
   security_scan:
     needs: build  # Solo corre después de que la imagen haya sido construida
