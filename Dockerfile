@@ -3,25 +3,35 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copiar solo archivos esenciales para instalar dependencias
+# Instalar dependencias necesarias para construir la app
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev  # Se instala todo (incluyendo @nestjs/cli si está en devDependencies)
 
-# Copiar el resto del código y construir la app
+# Copiar el código fuente
 COPY . .
-RUN npm run build
+
+# Instalar @nestjs/cli si no está en las dependencias del proyecto
+RUN npm install --save-dev @nestjs/cli
+
+# Construir la aplicación
+RUN npx nest build
+
+# Eliminar node_modules para evitar archivos innecesarios
+RUN rm -rf node_modules
 
 # Etapa 2: Imagen final más ligera y segura
 FROM node:18-alpine AS runner
 
 WORKDIR /app
 
-# Copiar solo archivos necesarios desde la etapa de construcción
+# Copiar solo los archivos necesarios desde la etapa de construcción
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY package.json ./
+COPY --from=builder /app/package.json ./
 
-# Exponer puerto (opcional pero recomendable)
+# Instalar solo las dependencias de producción
+RUN npm install --omit=dev
+
+# Exponer el puerto 3000
 EXPOSE 3000
 
 # Usar usuario no root para mayor seguridad
