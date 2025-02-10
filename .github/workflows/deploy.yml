@@ -20,4 +20,4 @@ jobs:
 
       - name: 🚀 Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository }}/my-app:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
