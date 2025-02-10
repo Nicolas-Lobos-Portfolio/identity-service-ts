@@ -1,6 +1,6 @@
-import { BaseDomain } from "../../shared/domain/base.domain";
-import { STATUS } from "../../shared/enums/status.enum";
-import { User } from "../../user/domain/user";
+import { BaseDomain } from '../../shared/domain/base.domain';
+import { STATUS } from '../../shared/enums/status.enum';
+import { User } from '../../user/domain/user';
 import { v4 as uuidv4 } from 'uuid';
 
 export class AccountPrimitive extends BaseDomain {
@@ -10,15 +10,12 @@ export class AccountPrimitive extends BaseDomain {
   user: User;
 }
 
-type AccountDomain = AccountPrimitive & BaseDomain
+type AccountDomain = AccountPrimitive & BaseDomain;
 
 export class Account {
-  constructor(
-    private readonly account: AccountDomain
-  ) { }
+  constructor(private readonly account: AccountDomain) {}
 
   static create(createAccount: AccountDomain, user: User) {
-
     return new Account({
       id: uuidv4(),
       user,
@@ -28,10 +25,10 @@ export class Account {
       status: STATUS.PENDING,
       createAt: new Date(Date.now()),
       updateAt: new Date(Date.now()),
-    })
+    });
   }
 
-  toValue() : AccountDomain {
+  toValue(): AccountDomain {
     return {
       id: this.account.id,
       username: this.account.username,
@@ -43,5 +40,4 @@ export class Account {
       status: this.account.status,
     };
   }
-
 }

@@ -1,11 +1,11 @@
-import { Module } from "@nestjs/common";
-import { AuthService } from "./infrastructure/grpc/auth.grpc";
-import { CreateCredentialUseCase } from "./application/create-credential";
-import { CredentialRepository } from "./infrastructure/repository/credential.repository";
-import { CREDENTIAL_REPOSITORY_PORT } from "./domain/credential-repository.port";
+import { Module } from '@nestjs/common';
+import { AuthService } from './infrastructure/grpc/auth.grpc';
+import { CreateCredentialUseCase } from './application/create-credential';
+import { CredentialRepository } from './infrastructure/repository/credential.repository';
+import { CREDENTIAL_REPOSITORY_PORT } from './domain/credential-repository.port';
 
 @Module({
-  controllers:[AuthService],
+  controllers: [AuthService],
   providers: [
     CreateCredentialUseCase,
     AuthService,
@@ -13,14 +13,12 @@ import { CREDENTIAL_REPOSITORY_PORT } from "./domain/credential-repository.port"
     {
       provide: CREDENTIAL_REPOSITORY_PORT,
       useClass: CredentialRepository,
-    }
+    },
   ],
   exports: [CreateCredentialUseCase],
   imports: [],
 })
 export class AuthModule {}
-
-
 
 // @Module({
 //   controllers: [UserController],

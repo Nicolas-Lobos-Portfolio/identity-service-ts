@@ -5,7 +5,7 @@ import { UserRepository } from '../../domain/user-repository';
 @Injectable()
 export class InMemorUserRepository extends UserRepository {
   getByUserName(username: string): Promise<User | null> {
-    throw new Error('Method not implemented.');
+    throw new Error(`Method not implemented. ${username}`);
   }
   private users: PrimitiveUser[] = [];
 

@@ -5,7 +5,7 @@ import app from './shared/infrastructure/config/app';
 import database from './shared/infrastructure/config/database';
 import { AuthModule } from './auth/auth.module';
 
-const configuration = [app, database]
+const configuration = [app, database];
 
 @Module({
   imports: [
@@ -15,9 +15,8 @@ const configuration = [app, database]
       envFilePath: '.development.env',
       ignoreEnvFile: true,
       isGlobal: true,
-      load: configuration
-    })
-
+      load: configuration,
+    }),
   ],
   controllers: [],
   providers: [],

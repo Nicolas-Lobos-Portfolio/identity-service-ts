@@ -1,0 +1,27 @@
+name: CI/CD Pipeline for My App
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  # Job de Linter
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  # Job de Build
+  build:
+    needs: lint
+    uses: ./.github/workflows/build.yml
+
+  # Job de Security Scan
+  security_scan:
+    needs: build
+    uses: ./.github/workflows/security-scan.yml
+
+  # Job de Deploy
+  deploy:
+    needs: security_scan
+    uses: ./.github/workflows/deploy.yml

@@ -1,19 +1,19 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator"
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class createCredentialHttpDto {
   @IsUUID()
   @IsNotEmpty()
-  userId:string
-  
-  @IsString()
-  @IsNotEmpty()
-  password:string
+  userId: string;
 
   @IsString()
   @IsNotEmpty()
-  authProvider:string
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  authProvider: string;
 
   @IsString()
   @IsOptional()
-  externalId?:string
+  externalId?: string;
 }

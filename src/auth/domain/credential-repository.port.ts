@@ -1,4 +1,4 @@
-import { Credential } from "./credential";
+import { Credential } from './credential';
 
 export interface CredentialRepositoryPort {
   findById(id: string): Promise<Credential | null>;

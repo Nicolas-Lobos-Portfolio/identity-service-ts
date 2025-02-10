@@ -1,9 +1,9 @@
-import { STATUS } from "../../shared/enums/status.enum";
+import { STATUS } from '../../shared/enums/status.enum';
 
 export class Password {
   id: string;
   hashedContent: string;
-  createdAt: Date; 
+  createdAt: Date;
   updateAt: Date;
   status: STATUS;
 }

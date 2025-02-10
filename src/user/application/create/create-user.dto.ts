@@ -4,5 +4,3 @@ export interface CreateUserDto {
   birthday: Date;
   gender: string;
 }
-
-

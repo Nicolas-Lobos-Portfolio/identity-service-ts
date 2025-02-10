@@ -1,0 +1,23 @@
+name: Deploy Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  deploy:
+    needs: security_scan  # Solo corre después de un análisis exitoso
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🔑 Log in to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: 🚀 Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository }}/my-app:${{ github.sha }}

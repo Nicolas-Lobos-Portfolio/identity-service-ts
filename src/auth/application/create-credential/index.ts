@@ -1,12 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CreateCredentialUseCase {
-  constructor(
-  ) {}
+  constructor() {}
 
   execute(data) {
-    console.log('llegando al caso de uso', data)
+    console.log('llegando al caso de uso', data);
     return JSON.stringify(data);
   }
 }

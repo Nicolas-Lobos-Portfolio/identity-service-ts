@@ -1,0 +1,12 @@
+# Ignorar node_modules y build local (para evitar copias innecesarias)
+node_modules
+dist
+
+# Archivos de configuración que no deben ir al contenedor
+.env
+.env.*
+*.log
+
+# Configuración de Git
+.git
+.gitignore
