@@ -1,0 +1,15 @@
+syntax = "proto3";
+package auth;
+
+service AuthService {
+  rpc CreateCredential (Request) returns (Response);
+
+}
+
+message Request {
+  string body = 1;
+}
+
+message Response {
+  string message = 1;
+}

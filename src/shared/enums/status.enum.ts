@@ -1,0 +1,5 @@
+export enum STATUS {
+  ENABLED = 'ENABLED',
+  DISABLED = 'DISABLED',
+  PENDING = 'PENDING',
+}
