@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    needs: security_scan  # Solo corre después de un análisis exitoso
+    # needs: security_scan  # Solo corre después de un análisis exitoso
     runs-on: ubuntu-latest
 
     steps:

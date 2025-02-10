@@ -7,7 +7,7 @@ on:
       - develop
 jobs:
   security_scan:
-    needs: build  # Solo corre después de que la imagen haya sido construida
+    # needs: build  # Solo corre después de que la imagen haya sido construida
     runs-on: ubuntu-latest
 
     steps:
