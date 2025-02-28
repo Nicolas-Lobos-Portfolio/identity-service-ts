@@ -4,15 +4,15 @@
 var grpc = require('@grpc/grpc-js');
 var auth_pb = require('./auth_pb.js');
 
-function serialize_auth_Request(arg) {
-  if (!(arg instanceof auth_pb.Request)) {
-    throw new Error('Expected argument of type auth.Request');
+function serialize_auth_CreateCredentialRequest(arg) {
+  if (!(arg instanceof auth_pb.CreateCredentialRequest)) {
+    throw new Error('Expected argument of type auth.CreateCredentialRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_auth_Request(buffer_arg) {
-  return auth_pb.Request.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_auth_CreateCredentialRequest(buffer_arg) {
+  return auth_pb.CreateCredentialRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_auth_Response(arg) {
@@ -32,13 +32,13 @@ var AuthServiceService = exports.AuthServiceService = {
     path: '/auth.AuthService/CreateCredential',
     requestStream: false,
     responseStream: false,
-    requestType: auth_pb.Request,
+    requestType: auth_pb.CreateCredentialRequest,
     responseType: auth_pb.Response,
-    requestSerialize: serialize_auth_Request,
-    requestDeserialize: deserialize_auth_Request,
+    requestSerialize: serialize_auth_CreateCredentialRequest,
+    requestDeserialize: deserialize_auth_CreateCredentialRequest,
     responseSerialize: serialize_auth_Response,
     responseDeserialize: deserialize_auth_Response,
   },
 };
 
-exports.AuthServiceClient = grpc.makeGenericClientConstructor(AuthServiceService);
+exports.AuthServiceClient = grpc.makeGenericClientConstructor(AuthServiceService, 'AuthService');

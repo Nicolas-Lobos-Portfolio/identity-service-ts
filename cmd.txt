@@ -1,0 +1,12 @@
+
+CMD´S
+
+
+generar archivos GRPC
+npx grpc_tools_node_protoc \
+  --plugin=protoc-gen-ts=$(which protoc-gen-ts) \
+  --js_out=import_style=commonjs,binary:src/auth/infrastructure/grpc/proto/generated \
+  --grpc_out=grpc_js:src/auth/infrastructure/grpc/proto/generated \
+  --ts_out=src/auth/infrastructure/grpc/proto/generated \
+  --proto_path=src/auth/infrastructure/grpc/proto/definition \
+  src/auth/infrastructure/grpc/proto/definition/auth.proto

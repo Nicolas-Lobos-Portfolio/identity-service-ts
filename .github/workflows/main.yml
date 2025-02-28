@@ -1,27 +1,92 @@
-name: CI/CD Pipeline for My App
+name: CI Pipeline
 
 on:
   push:
-    branches:
-      - master
-      - develop
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  # Job de Linter
-  lint:
-    uses: ./lint.yml
+  lint-format:
+    name: 🔍 Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
 
-  # Job de Build
-  build:
-    needs: lint
-    uses: ./build.yml
+      - name: 📦 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-  # Job de Security Scan
-  security_scan:
-    needs: build
-    uses: ./security_scan.yml
+      - name: 📥 Instalar dependencias
+        run: npm ci
 
-  # Job de Deploy
-  deploy:
-    needs: security_scan
-    uses: ./deploy.yml
+      - name: 🎨 Ejecutar Prettier
+        run: npm run format
+
+      - name: 🔍 Ejecutar ESLint
+        run: npm run lint
+
+  security-analysis:
+    name: 🛡️ Análisis de Seguridad
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 📦 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📥 Instalar dependencias
+        run: npm ci
+
+      - name: 🔍 Escaneo de vulnerabilidades con npm audit
+        run: npm audit --audit-level=high || true
+
+      - name: 🛠️ Instalar Trivy
+        run: |
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.47.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.47.0_Linux-64bit.deb
+
+      - name: 🔎 Análisis de seguridad con Trivy
+        run: trivy fs --exit-code 1 --severity HIGH,CRITICAL .
+
+  build-and-push:
+    name: 🏗️ Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: [lint-format, security-analysis]
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+
+      - name: 🔧 Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # - name: 🔑 Login en GitHub Container Registry
+      #   run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name:  🔑 Login en GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+
+      - name: 🏗️ Construir imagen Docker
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+
+      - name: 🚀 Subir imagen a GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
