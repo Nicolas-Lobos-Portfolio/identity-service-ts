@@ -4,8 +4,7 @@ import { Inject } from '@nestjs/common';
 import { service } from './mms-service.provider';
 
 export class MMSServiceAdapter {
-  constructor() // private readonly httpServicePort: HttpServicePort, // @Inject(service.MMSHttpService)
-  {}
+  constructor() {} // private readonly httpServicePort: HttpServicePort, // @Inject(service.MMSHttpService)
   async getUserProfile(email: string): Promise<any> {
     console.log(email);
     // return await this.httpServicePort
