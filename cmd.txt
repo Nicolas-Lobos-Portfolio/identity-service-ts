@@ -2,7 +2,7 @@
 CMD´S
 
 
-generar archivos GRPC
+//generar archivos GRPC
 npx grpc_tools_node_protoc \
   --plugin=protoc-gen-ts=$(which protoc-gen-ts) \
   --js_out=import_style=commonjs,binary:src/auth/infrastructure/grpc/proto/generated \
@@ -10,3 +10,10 @@ npx grpc_tools_node_protoc \
   --ts_out=src/auth/infrastructure/grpc/proto/generated \
   --proto_path=src/auth/infrastructure/grpc/proto/definition \
   src/auth/infrastructure/grpc/proto/definition/auth.proto
+
+
+
+
+//levantar Microsoft Sql Server
+docker run --platform linux/amd64 -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Sqlserver123' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+

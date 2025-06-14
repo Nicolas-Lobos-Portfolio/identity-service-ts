@@ -1,0 +1,20 @@
+import { CanActivate, ExecutionContext } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { SecurityServiceAdapter } from '../infrastructure/security-service.adapter';
+import { Injectable } from '../../../shared/dependency-injection/injectable';
+
+@Injectable()
+export class AuthenticationGuard implements CanActivate {
+  constructor(private readonly securityService: SecurityServiceAdapter) {}
+
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+    const token = request.headers['authorization']?.split(' ')[1];
+
+    if (!token) return false;
+
+    return this.securityService.validateToken(token);
+  }
+}

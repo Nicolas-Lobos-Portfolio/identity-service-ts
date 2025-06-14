@@ -1,16 +1,48 @@
 syntax = "proto3";
 package auth;
 
+
 service AuthService {
-  rpc CreateCredential (CreateCredentialRequest) returns (Response);
+  rpc SendMailCode(SendMailCodeRequest) returns (Response);
+  rpc CheckCode(CheckCodeRequest) returns (Response);
+  rpc CreateCredential(CreateCredentialRequest) returns (Response);
 }
 
+message SendMailCodeRequest {
+  string email = 1;
+}
+
+
+message CheckCodeRequest {
+  string code = 1;
+}
+
+
 message CreateCredentialRequest {
-  string birthday = 1;
-  string phone = 2;
-  string email = 3;
-  string password = 4;
-  string username = 5;
+  //credentials
+  string username = 1;
+  string password = 2;
+  optional string authProvider = 3;
+  optional string externalId = 4;
+
+
+
+  //userinfo 
+  string firstname = 5;
+  string lastname = 6;
+  string email = 7;
+  string phone = 8;
+  string birthday = 9;
+
+
+  // device 
+  string deviceName = 10;
+  string deviceType = 11;
+  string os = 12;
+  string osVersion = 13; 
+  string ipAddress = 14;
+  string userAgent = 15;
+
 }
 
 message Response {

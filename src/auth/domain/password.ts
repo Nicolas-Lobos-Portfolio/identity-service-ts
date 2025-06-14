@@ -1,4 +1,4 @@
-import { STATUS } from '../../shared/enums/status.enum';
+import { STATUS } from '../../shared/enum/status.enum';
 
 export class Password {
   id: string;

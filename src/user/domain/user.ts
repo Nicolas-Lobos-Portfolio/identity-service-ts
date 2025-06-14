@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { STATUS } from '../../shared/enums/status.enum';
+import { STATUS } from '../../shared/enum/status.enum';
 export interface PrimitiveUser {
   id: string;
   name: string;

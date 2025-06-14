@@ -1,14 +1,11 @@
-import { STATUS } from '../../shared/enums/status.enum';
+import { BaseDomain } from 'src/shared/domain/base.domain';
 import { Password } from './password';
+import { User } from './user';
 
-export class Credential {
-  id: string;
-  userId: string;
+export class Credential extends BaseDomain {
+  user: User;
   username: string;
   password: Password;
   authProvider: string;
   externalId?: string;
-  createdAt: Date;
-  updateAt: Date;
-  status: STATUS;
 }

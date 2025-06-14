@@ -1,12 +1,38 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { Logger } from 'nestjs-pino';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
+  app.useGlobalPipes(new ValidationPipe());
+  app.useLogger(app.get(Logger));
+  app.flushLogs();
+  grpcServerUp(app);
+  await httpServerUp(app);
+}
+bootstrap();
 
+async function httpServerUp(app: INestApplication<any>) {
+  const port = 3000;
+  const config = new DocumentBuilder()
+    .setTitle('Authentication service')
+    .setDescription('The user can get Tokens here')
+    .setVersion('1.0')
+    .addTag('auth')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory);
+  await app.listen(port);
+  console.log(`http server running on ${port} port`);
+}
+
+function grpcServerUp(app: INestApplication<any>) {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
@@ -18,19 +44,6 @@ async function bootstrap() {
       ),
     },
   });
-
   app.startAllMicroservices();
   console.log('grpc server running on 50051 port');
 }
-bootstrap();
-
-// const app = await NestFactory.create(AppModule);
-// const config = new DocumentBuilder()
-//   .setTitle('Authentication service')
-//   .setDescription('The user can get Tokens here')
-//   .setVersion('1.0')
-//   .addTag('auth')
-//   .build();
-// const documentFactory = () => SwaggerModule.createDocument(app, config);
-// SwaggerModule.setup('api', app, documentFactory);
-// await app.listen(3000);

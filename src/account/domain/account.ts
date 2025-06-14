@@ -1,5 +1,5 @@
 import { BaseDomain } from '../../shared/domain/base.domain';
-import { STATUS } from '../../shared/enums/status.enum';
+import { STATUS } from '../../shared/enum/status.enum';
 import { User } from '../../user/domain/user';
 import { v4 as uuidv4 } from 'uuid';
 
