@@ -5,13 +5,14 @@ WORKDIR /app
 
 # Instalar dependencias necesarias para construir la app
 COPY package.json package-lock.json ./
-RUN npm install --omit=dev  # Se instala todo (incluyendo @nestjs/cli si está en devDependencies)
+RUN npm install --omit=dev  --legacy-peer-deps 
 
 # Copiar el código fuente
 COPY . .
 
 # Instalar @nestjs/cli si no está en las dependencias del proyecto
-RUN npm install --save-dev @nestjs/cli
+RUN npm install --save-dev @nestjs/cli  --legacy-peer-deps
+
 
 # Construir la aplicación
 RUN npx nest build
@@ -29,7 +30,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 
 # Instalar solo las dependencias de producción
-RUN npm install --omit=dev
+RUN npm install --omit=dev  --legacy-peer-deps
 
 # Exponer el puerto 3000
 EXPOSE 3000
