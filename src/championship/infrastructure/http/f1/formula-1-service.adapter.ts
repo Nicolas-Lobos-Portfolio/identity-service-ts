@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { httpServiceProvider } from './f1-service.provider';
-import { TeamDto } from '../../../application/get-teams/dto/get-team.dto';
-import { F1HttpServicePort } from '../../../domain/services/f1-http-service.port';
-import { HttpServicePort } from '../../../../shared/http-request/domain/http-service-port.shared';
+import { TeamDto } from '@championship/application/get-teams/dto/get-team.dto';
+import { F1HttpServicePort } from '@championship/domain/services/f1-http-service.port';
+import { HttpServicePort } from '@shared/http-request/domain/http-service-port.shared';
 export class F1PilotHttpServiceAdapter implements F1HttpServicePort {
   constructor(
     @Inject(httpServiceProvider.providers.f1HttpService)

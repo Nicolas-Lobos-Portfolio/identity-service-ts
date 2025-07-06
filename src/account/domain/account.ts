@@ -1,7 +1,7 @@
-import { BaseDomain } from '../../shared/domain/base.domain';
-import { STATUS } from '../../shared/enum/status.enum';
-import { User } from '../../user/domain/user';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '@user/domain/user';
+import { STATUS } from '@shared/enum/status.enum';
+import { BaseDomain } from '@shared/domain/base.domain';
 
 export class AccountPrimitive extends BaseDomain {
   username: string;

@@ -1,7 +1,7 @@
-import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { SecurityServiceAdapter } from '../infrastructure/security-service.adapter';
+import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Injectable } from '../../../shared/dependency-injection/injectable';
+import { SecurityServiceAdapter } from '../infrastructure/security-service.adapter';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {

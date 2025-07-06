@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
-
 import { PilotEntity } from './pilot.entity';
-import { MySqlServerDataSourceProvide } from '../../../../shared/database/database.providers';
+import { F1_REPOSITORY } from '../database.config';
 
 export const pilotRepository = 'pilotRepository';
 
@@ -10,6 +9,6 @@ export const PilotServiceProviders = [
     provide: pilotRepository,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(PilotEntity),
-    inject: [MySqlServerDataSourceProvide],
+    inject: [F1_REPOSITORY],
   },
 ];

@@ -1,7 +1,7 @@
-import { Injectable } from '../../../shared/dependency-injection/injectable';
+import { CreateUserDto } from './create-user.dto';
 import { PrimitiveUser, User } from '../../domain/user';
 import { UserRepository } from '../../domain/user-repository';
-import { CreateUserDto } from './create-user.dto';
+import { Injectable } from '@shared/dependency-injection/injectable';
 
 @Injectable()
 export class CreateUserUseCase {

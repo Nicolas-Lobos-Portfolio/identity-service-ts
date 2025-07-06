@@ -1,9 +1,8 @@
 // import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
 import { GrpcMethod } from '@nestjs/microservices';
 import { CreateCredentialUseCase } from '../../application/create-credential';
-import { Controller, Inject } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { IAuthServiceServer } from './proto/generated/auth_grpc_pb';
-
 import { SendMailCodeUseCase } from '../../../auth/application/send-code-mail';
 import { CheckCodeUseCase } from '../../../auth/application/check-code';
 @Controller('GRPCauth')

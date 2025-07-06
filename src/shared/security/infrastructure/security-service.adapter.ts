@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { SecurityServicePort } from '../domain/security-service.port';
 import { Role } from '../domain/role.enum';
+import { SecurityServicePort } from '../domain/security-service.port';
 
 @Injectable()
 export class SecurityServiceAdapter implements SecurityServicePort {
   constructor(private readonly jwtService: JwtService) {}
 
   // Generar el token
-  async generateToken(payload: string): Promise<any> {
-    return {
-      access_token: this.jwtService.sign({ payload }),
-    };
+  async generateToken<T>(payload: T): Promise<string> {
+    const payloadToString = JSON.stringify(payload);
+    return this.jwtService.sign({ payload: payloadToString });
   }
 
   // Valida el token

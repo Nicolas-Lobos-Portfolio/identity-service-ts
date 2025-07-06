@@ -6,7 +6,7 @@ import { EmailServicePort } from '../domain/email-service-port';
 export class EmailServiceAdapter implements EmailServicePort {
   constructor(private readonly mailerService: MailerService) {}
 
-  async sendMail(to: string, code: string): Promise<void> {
+  async send(to: string, code: string): Promise<void> {
     try {
       await this.mailerService.sendMail({
         to,

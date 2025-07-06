@@ -1,9 +1,9 @@
-import { Injectable } from '../../../shared/dependency-injection/injectable';
-import { PrimitiveUser, User } from '../../domain/user';
-import { UserRepository } from '../../domain/user-repository';
+import { PrimitiveUser, User } from '@user/domain/user';
+import { UserRepository } from '@user/domain/user-repository';
+import { Injectable } from '@shared/dependency-injection/injectable';
 
 @Injectable()
-export class InMemorUserRepository extends UserRepository {
+export class InMemoryUserRepository extends UserRepository {
   getByUserName(username: string): Promise<User | null> {
     throw new Error(`Method not implemented. ${username}`);
   }

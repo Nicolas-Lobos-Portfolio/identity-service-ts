@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Credential } from '../../domain/credential';
-import { CredentialRepositoryPort } from '../../domain/services/credential-repository.port';
-import { Repository } from 'typeorm';
-import { CredentialEntity } from './entities/credential.entity';
 import * as bcrypt from 'bcrypt';
-import { LoginHttpDto } from 'src/user/infrastructure/controllers/login/login.http.dto';
+import { Repository } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
+import { Credential } from '@auth/domain/credential';
+import { CredentialEntity } from './entities/credential.entity';
 import { credentialRepository } from './providers/credential.providers';
+import { LoginHttpDto } from '@user/infrastructure/controllers/login/login.http.dto';
+import { CredentialRepositoryPort } from '@auth/domain/services/credential-repository.port';
 @Injectable()
 export class CredentialRepositoryAdapter implements CredentialRepositoryPort {
   private readonly credentials: Array<Credential>;

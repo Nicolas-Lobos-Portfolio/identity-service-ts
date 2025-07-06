@@ -1,6 +1,6 @@
-import { Controller, Post } from '@nestjs/common';
-import { LoginUseCase } from 'src/auth/application/login/login.usecase';
 import { LoginHttpDto } from './login.http.dto';
+import { Controller, Post } from '@nestjs/common';
+import { LoginUseCase } from '@auth/application/login/login.usecase';
 
 @Controller('login')
 export class LoginController {

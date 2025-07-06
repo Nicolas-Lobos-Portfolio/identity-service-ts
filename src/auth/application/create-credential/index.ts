@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { Credential } from '../../domain/credential';
-import { CredentialRepositoryPort } from '../../../auth/domain/services/credential-repository.port';
-import { Injectable } from '../../../shared/dependency-injection/injectable';
+import { Injectable } from '@shared/dependency-injection/injectable';
+import { CredentialRepositoryPort } from '@auth/domain/services/credential-repository.port';
 
 @Injectable()
 export class CreateCredentialUseCase {

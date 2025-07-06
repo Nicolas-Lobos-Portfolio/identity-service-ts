@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
-
+import { F1_REPOSITORY } from '../database.config';
 import { ChampionshipEntity } from './championship.entity';
-import { MySqlServerDataSourceProvide } from '../../../../shared/database/database.providers';
 
 export const championshipRepository = 'championshipRepository';
 
@@ -10,6 +9,6 @@ export const ChampionshipServiceProviders = [
     provide: championshipRepository,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(ChampionshipEntity),
-    inject: [MySqlServerDataSourceProvide],
+    inject: [F1_REPOSITORY],
   },
 ];

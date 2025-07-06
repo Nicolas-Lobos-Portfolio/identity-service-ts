@@ -1,7 +1,7 @@
 import { TeamEntity } from '../team/team.entity';
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { ChampionshipEntity } from '../championship/championship.entity';
-import { BaseIdEntity } from '../../../../shared/infrastructure/entities/base-id.entity';
+import { BaseIdEntity } from '@shared/infrastructure/entities/base-id.entity';
 
 @Entity('pilot')
 export class PilotEntity extends BaseIdEntity {

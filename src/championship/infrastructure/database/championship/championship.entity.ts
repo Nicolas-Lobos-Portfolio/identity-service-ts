@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { TeamEntity } from '../team/team.entity';
 import { PilotEntity } from '../pilot/pilot.entity';
-import { BaseIdEntity } from '../../../../shared/infrastructure/entities/base-id.entity';
+import { BaseIdEntity } from '@shared/infrastructure/entities/base-id.entity';
 
 @Entity('championship')
 export class ChampionshipEntity extends BaseIdEntity {

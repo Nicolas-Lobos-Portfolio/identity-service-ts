@@ -1,6 +1,6 @@
 import { Role } from './role.enum';
 export interface SecurityServicePort {
-  generateToken(payload: string): Promise<any>;
+  generateToken<T>(payload: T): Promise<string>;
   validateToken(token: string): Promise<boolean>;
   decodeToken<T>(token: string): T;
   getUserRoleFromToken(token: string): Role;

@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { CreateUserUseCase } from './application/create/create-user.usecase';
-import { UserController } from './infrastructure/controllers/create-user/create.controller';
-import { UserRepository } from './domain/user-repository';
-import { InMemorUserRepository } from './infrastructure/repositories/in-memory.user-repository';
+import { UserRepository } from '@user/domain/user-repository';
+import { CreateUserUseCase } from '@user/application/create/create-user.usecase';
+import { UserController } from '@user/infrastructure/controllers/create-user/create.controller';
+import { InMemoryUserRepository } from '@user/infrastructure/repositories/in-memory.user-repository';
 
 @Module({
   controllers: [UserController],
   providers: [
     CreateUserUseCase,
-    InMemorUserRepository,
+    InMemoryUserRepository,
     {
       provide: UserRepository,
-      useExisting: InMemorUserRepository,
+      useExisting: InMemoryUserRepository,
     },
   ],
   exports: [CreateUserUseCase],

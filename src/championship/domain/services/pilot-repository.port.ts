@@ -1,4 +1,4 @@
-import { PilotEntity } from '../../../championship/infrastructure/database/pilot/pilot.entity';
+import { PilotEntity } from '@championship/infrastructure/database/pilot/pilot.entity';
 
 export interface PilotRepositoryPort {
   getPilots(): Promise<Array<PilotEntity>>;

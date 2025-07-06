@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { SecurityServiceAdapter } from './infrastructure/security-service.adapter';
-import { AuthenticationGuard } from './application/authentication.guard';
 import { RolesGuard } from './application/roles.guard';
+import { EncryptServicePort } from './domain/encrypt-service.port';
 import { SecurityServicePort } from './domain/security-service.port';
+import { AuthenticationGuard } from './application/authentication.guard';
+import { EncryptServiceAdapter } from './infrastructure/encrypt-service.adapter';
+import { SecurityServiceAdapter } from './infrastructure/security-service.adapter';
 
 @Module({
   imports: [
@@ -13,17 +15,22 @@ import { SecurityServicePort } from './domain/security-service.port';
     }),
   ],
   providers: [
+    AuthenticationGuard,
+    RolesGuard,
     SecurityServiceAdapter,
+    EncryptServiceAdapter,
     {
       provide: SecurityServicePort,
       useExisting: SecurityServiceAdapter,
     },
-    AuthenticationGuard,
-    RolesGuard,
+    {
+      provide: EncryptServicePort,
+      useExisting: EncryptServiceAdapter,
+    },
   ],
   exports: [
     SecurityServicePort,
-    SecurityServiceAdapter,
+    EncryptServicePort,
     AuthenticationGuard,
     RolesGuard,
   ],

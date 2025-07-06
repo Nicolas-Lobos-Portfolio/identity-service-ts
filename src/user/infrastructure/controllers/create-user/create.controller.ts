@@ -1,7 +1,7 @@
+import { PrimitiveUser } from '@user/domain/user';
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateUserUseCase } from '../../../application/create/create-user.usecase';
-import { CreateUserHttpDto } from './create-user.http.dto';
-import { PrimitiveUser } from '../../../domain/user';
+import { CreateUserUseCase } from '@user/application/create/create-user.usecase';
+import { CreateUserHttpDto } from '@user/infrastructure/controllers/create-user/create-user.http.dto';
 
 @Controller('user')
 export class UserController {

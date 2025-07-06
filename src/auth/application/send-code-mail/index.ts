@@ -1,11 +1,11 @@
 import { Inject } from '@nestjs/common';
+import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { SendCodeEmailDto } from './send-code-email.dto';
-import { EmailServicePort } from '../../../shared/email/domain/email-service-port';
 import { generateRandomCode } from './helper/generate-random-code';
-import { CacheServicePort } from '../../../shared/cache/domain/cache-service-port.shared';
-import { validate } from 'class-validator';
-import { Injectable } from '../../../shared/dependency-injection/injectable';
+import { Injectable } from '@shared/dependency-injection/injectable';
+import { EmailServicePort } from '@shared/email/domain/email-service-port';
+import { CacheServicePort } from '@shared/cache/domain/cache-service-port.shared';
 
 @Injectable()
 export class SendMailCodeUseCase {
@@ -19,7 +19,7 @@ export class SendMailCodeUseCase {
     try {
       const codeEmailDto = this.validateDto(data);
       const code = await this.generateUniqueRandomCode();
-      this.emailServicePort.sendMail(
+      this.emailServicePort.send(
         codeEmailDto.email,
         `Código de verificación es ${code}`,
       );

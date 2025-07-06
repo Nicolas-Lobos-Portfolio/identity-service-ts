@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { DatabaseModule } from '../shared/database/database.module';
 import { HttpRequestModule } from '../shared/http-request/http.module';
 import { F1Controller } from './infrastructure/controller/f1.controller';
+import { F1_REPOSITORY } from './infrastructure/database/database.config';
 import { F1HttpServicePort } from './domain/services/f1-http-service.port';
 import { GetTeamsUseCase } from './application/get-teams/get-teams.usecase';
 import { TeamRepositoryPort } from './domain/services/team-repository.port';
@@ -20,7 +22,17 @@ import { ChampionshipServiceProviders } from './infrastructure/database/champion
 
 @Module({
   imports: [
-    DatabaseModule,
+    DatabaseModule.forRootAsync({
+      name: F1_REPOSITORY,
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        ...configService.get('database.f1'),
+        synchronize: true,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      }),
+      inject: [ConfigService],
+    }),
+
     HttpRequestModule.register(
       httpServiceProvider.providers.f1HttpService,
       'f1ClientHttp.url',
